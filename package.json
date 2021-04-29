@@ -1,0 +1,35 @@
+{
+    "name": "nodejs-api-architecture",
+    "version": "1.0.0",
+    "description": "Modern Nodejs API Architecture",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "rm -rf dist/ && tsc",
+        "dev": "tsc && node .",
+        "start": "NODE_ENV=production node .",
+        "preCommit": "npm run format && npm run lint && npm run build",
+        "commit": "npm run preCommit && commit-cli",
+        "lint": "eslint --ext .ts ./src",
+        "format": "prettier --write ./src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com:mr-ashok/modern-nodejs-api-architecture.git"
+    },
+    "author": "Ashok Chaudhari",
+    "homepage": "https://github.com/mr-ashok/modern-nodejs-api-architecture#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "4.9.0",
+        "@typescript-eslint/parser": "4.9.0",
+        "commit-cli": "git+ssh://git@github.com:mr-ashok/node-commit-cli.git#v1.0.1",
+        "eslint": "7.14.0",
+        "eslint-config-airbnb-base": "14.2.1",
+        "eslint-config-prettier": "6.15.0",
+        "eslint-config-standard": "16.0.2",
+        "eslint-plugin-import": "2.22.1",
+        "eslint-plugin-node": "11.1.0",
+        "eslint-plugin-prettier": "3.1.4",
+        "prettier": "2.2.1",
+        "typescript": "4.1.2"
+    }
+}

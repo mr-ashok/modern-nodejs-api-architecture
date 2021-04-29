@@ -1,0 +1,79 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        // #region NO-JS only TS
+        // Use few typescript's rule and supress JS rules to avoid false alram.
+        // Eg:
+        //  1. private readonly mongoDBLogger: (_?: string, loggerState?: LoggerState) => void;
+        //      Here, nothing is unused, but still JS no-unused-vars says that the "loggerState" (Present in function
+        //      declaration) is unused, which is not correct.
+        //
+        //  2. constructor(private readonly text: string) {}
+        //      Here, the constructor is valid and performing assignment of constructor parameter to member variable,
+        //      but still JS no-useless-constructor says that the constructor is useless and should be removed.
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": "error",
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "error",
+        // #endregion
+        // Mark all prettier issue as error
+        "prettier/prettier": "error",
+        // Do not enforce the extension in import statement for JS/TS modules.
+        // For others, mark issue as error.
+        // Eg:
+        //  Allow:
+        //      import ABC from './ABC'
+        //      import package from './package.json';
+        //  Disallow:
+        //      import ABC from './ABC.ts'
+        //      import package from './package';
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        // Enforce lines between class member variables and functions except for single line function or member.
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        // Already provided by Airbnb syntax, but adding manual entry to avoid accidental removal in future
+        // The for..of and for..in has some perfomance issue over the normal for loop.
+        // Ref: https://medium.com/@paul.beynon/thanks-for-taking-the-time-to-write-the-article-i-enjoyed-it-db916026647
+        "no-restricted-syntax": "error",
+        // Allow ++ or -- operators in for loop only to avoid side effect mentioned at https://eslint.org/docs/rules/no-plusplus
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ]
+    }
+}

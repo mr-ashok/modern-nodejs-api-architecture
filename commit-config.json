@@ -1,0 +1,8 @@
+{
+    "projectName": "NodeJs API Architecture",
+    "components": ["auth", "config", "db", "email", "logger", "misc"],
+    "issueTracker": {
+        "name": "Github Issue",
+        "idType": "url"
+    }
+}
