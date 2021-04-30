@@ -142,6 +142,9 @@
                     "order": "alphabetically"
                 }
             }
-        ]
+        ],
+        // Since mongoDB IDS are accessed using "_id", the eslint throws error for underscore ("_") while accessing the _id.
+        // Hence disbling this rule only for _id.
+        "no-underscore-dangle": ["error", { "allow": ["_id"] }]
     }
 }
