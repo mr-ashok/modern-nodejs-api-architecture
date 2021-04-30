@@ -20,6 +20,7 @@
     "author": "Ashok Chaudhari",
     "homepage": "https://github.com/mr-ashok/modern-nodejs-api-architecture#readme",
     "devDependencies": {
+        "@types/mongodb": "3.6.12",
         "@types/node": "15.0.1",
         "@typescript-eslint/eslint-plugin": "4.9.0",
         "@typescript-eslint/parser": "4.9.0",
@@ -34,5 +35,8 @@
         "eslint-plugin-promise": "4.3.1",
         "prettier": "2.2.1",
         "typescript": "4.1.2"
+    },
+    "dependencies": {
+        "mongodb": "3.6.6"
     }
 }
