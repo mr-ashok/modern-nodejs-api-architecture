@@ -19,7 +19,7 @@
     "plugins": ["@typescript-eslint"],
     "rules": {
         // #region NO-JS only TS
-        // Use few typescript's rule and supress JS rules to avoid false alram.
+        // Use few typescript's rule and supress JS rules to avoid false alarm.
         // Eg:
         //  1. private readonly mongoDBLogger: (_?: string, loggerState?: LoggerState) => void;
         //      Here, nothing is unused, but still JS no-unused-vars says that the "loggerState" (Present in function
@@ -34,6 +34,7 @@
         "@typescript-eslint/no-useless-constructor": "error",
         "no-empty-function": "off",
         "@typescript-eslint/no-empty-function": "error",
+        "@typescript-eslint/explicit-function-return-type": "error",
         // #endregion
         // Mark all prettier issue as error
         "prettier/prettier": "error",
@@ -67,12 +68,79 @@
         // Already provided by Airbnb syntax, but adding manual entry to avoid accidental removal in future
         // The for..of and for..in has some perfomance issue over the normal for loop.
         // Ref: https://medium.com/@paul.beynon/thanks-for-taking-the-time-to-write-the-article-i-enjoyed-it-db916026647
-        "no-restricted-syntax": "error",
+        "no-restricted-syntax": [
+            "error",
+            {
+                // Query of eslint, already provided by eslint internally.
+                // Query: https://github.com/estools/esquery
+                // Demo: https://estools.github.io/esquery/
+                "selector": "CallExpression > MemberExpression[object.name='Date'][property.name='now']",
+                "message": "Use TimeWrapper instead of Date.now()"
+            }
+        ],
         // Allow ++ or -- operators in for loop only to avoid side effect mentioned at https://eslint.org/docs/rules/no-plusplus
         "no-plusplus": [
             "error",
             {
                 "allowForLoopAfterthoughts": true
+            }
+        ],
+        // All the functions should accept max 3 parameters, which would be a single object containing all the require
+        // params for the function. This rule needs to be enforced to have named function parameters, so the dev calling
+        // the function would know the field name and it's value while calling the function.
+        // This rule is enforced to avoid sending wrong data to the function, which could cause runtime logical error.
+        // Also, this would make the function call more readable.
+        // Eg: fun1(12, 'ABC', 'DEF', 14) is less readable than fun1({id: 12, firstName: 'ABC', lastName: 'DEF', score: 14})
+        // The named params are longer, but more verbose and make the code easier to read, understand and catch the bugs.
+        "max-params": ["error", 3],
+        "max-statements": ["error", { "max": 20 }],
+        "no-magic-numbers": ["error", { "ignore": [-1, 0, 1] }],
+        "@typescript-eslint/member-ordering": [
+            "warn",
+            {
+                "default": {
+                    "memberTypes": [
+                        // Index signature
+                        "signature",
+
+                        // Fields
+                        "public-static-field",
+                        "protected-static-field",
+                        "private-static-field",
+                        "public-decorated-field",
+                        "protected-decorated-field",
+                        "private-decorated-field",
+                        "public-instance-field",
+                        "public-abstract-field",
+                        "protected-instance-field",
+                        "protected-abstract-field",
+                        "private-instance-field",
+                        "private-abstract-field",
+                        "field",
+
+                        // Constructors
+                        "public-constructor",
+                        "protected-constructor",
+                        "private-constructor",
+                        "constructor",
+
+                        // Methods
+                        "public-static-method",
+                        "protected-static-method",
+                        "private-static-method",
+                        "public-decorated-method",
+                        "protected-decorated-method",
+                        "private-decorated-method",
+                        "public-instance-method",
+                        "public-abstract-method",
+                        "protected-instance-method",
+                        "protected-abstract-method",
+                        "private-instance-method",
+                        "private-abstract-method",
+                        "method"
+                    ],
+                    "order": "alphabetically"
+                }
             }
         ]
     }
