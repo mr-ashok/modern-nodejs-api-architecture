@@ -3,7 +3,7 @@
 -   The architecture is divided into three main parts
     -   Data Layer
     -   Service Layer
-    -   Middleware Layer
+    -   Router Layer
 
 ### Data Layer
 
@@ -17,7 +17,7 @@
 -   This layer contains the main logic of API endpoint.
 -   This layer make use of Data Layer to fetch and store data.
 
-### Middleware Layer
+### Router Layer
 
 -   This layer is middleware between incomming request and the Service Layer.
 -   The Middleware Layer contains the code to extract the data from request and provide the data to Service Layer. Also, it takes the result of Service Layer and pass it on as a response.
