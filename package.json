@@ -11,7 +11,8 @@
         "preCommit": "npm run format && npm run lint && npm run build",
         "commit": "npm run preCommit && commit-cli",
         "lint": "eslint --ext .ts ./src",
-        "format": "prettier --write ./src"
+        "format": "prettier --write ./src",
+        "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\", \"noUncheckedIndexedAccess\": false }' mocha --parallel -r ts-node/register --recursive \"test/unit/**/*.spec.ts\""
     },
     "repository": {
         "type": "git",
@@ -20,10 +21,13 @@
     "author": "Ashok Chaudhari",
     "homepage": "https://github.com/mr-ashok/modern-nodejs-api-architecture#readme",
     "devDependencies": {
+        "@types/chai": "4.2.18",
+        "@types/mocha": "8.2.2",
         "@types/mongodb": "3.6.12",
         "@types/node": "15.0.1",
         "@typescript-eslint/eslint-plugin": "4.9.0",
         "@typescript-eslint/parser": "4.9.0",
+        "chai": "4.3.4",
         "commit-cli": "git+ssh://git@github.com:mr-ashok/node-commit-cli.git#v1.0.1",
         "eslint": "7.14.0",
         "eslint-config-airbnb-base": "14.2.1",
@@ -33,7 +37,9 @@
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-prettier": "3.1.4",
         "eslint-plugin-promise": "4.3.1",
+        "mocha": "8.4.0",
         "prettier": "2.2.1",
+        "ts-node": "9.1.1",
         "typescript": "4.1.2"
     },
     "dependencies": {
