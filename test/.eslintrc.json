@@ -1,0 +1,9 @@
+{
+    // Certain rules should be disabled for the tests
+    "rules": {
+        "no-undef": "off",
+        "no-magic-numbers": "off",
+        "no-unused-expressions": "off",
+        "class-methods-use-this": "off"
+    }
+}
